@@ -20,7 +20,7 @@ const SignUpForm = () => {
 
     console.log(formFields);
 
-    const resettFormFields = () => {
+    const resetFormFields = () => {
         setFormFields(defaultFormFields);
     }
 
@@ -36,7 +36,7 @@ const SignUpForm = () => {
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
             await createUserDocumentFromAuth(user, { displayName });
-            resettFormFields();
+            resetFormFields();
 
         } catch (error) {
             if(error.code === "auth/email-already-in-use") {
@@ -61,7 +61,7 @@ const SignUpForm = () => {
             <span>Sign up with your email and password</span>
             <form onSubmit={handleSubmit}>
                 <FormInput 
-                    label = "Dieplay Name"
+                    label = "Display Name"
                     type="text" 
                     required 
                     onChange={handleChange} 
