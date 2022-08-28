@@ -3,7 +3,10 @@ import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
+import { 
+    createAuthUserWithEmailAndPassword, 
+    createUserDocumentFromAuth 
+} from "../../utils/firebase/firebase.utils";
 
 import "./sign-up-form.style.scss";
 
@@ -18,8 +21,11 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields;
 
-    console.log(formFields);
-
+    // const val = useContext(UserContext); 
+    // forces refresh, but it re-render only if jsx changed
+    // all code gets called up to return => performance issue if 100s of hooks
+    // console.log("hit");
+    
     const resetFormFields = () => {
         setFormFields(defaultFormFields);
     }
@@ -33,7 +39,10 @@ const SignUpForm = () => {
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password);
+            const { user } = await createAuthUserWithEmailAndPassword(
+                email,
+                password
+            );
 
             await createUserDocumentFromAuth(user, { displayName });
             resetFormFields();
